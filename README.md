@@ -8,3 +8,18 @@ https://medium.com/infocentric/setup-a-graphql-api-with-apollo-2-0-sequelize-and
 # This example is uses Docker and was made on a Mac (Windows mileage may vary)
 
 https://docs.docker.com/docker-for-mac/install/
+
+# Step-by-step
+
+We're using yarn (https://yarnpkg.com/lang/en/docs/install/#mac-stable)
+
+yarn init --yes
+
+yarn add body-parser express pg sequelize apollo-server-express apollo-boost graphql-tag graphql
+
+yarn add --dev nodemon sequelize-cli babel-cli babel-preset-env babel-preset-stage-3 webpack webpack-cli faker lodash.times lodash.random
+
+yarn run sequelize-skeleton
+
+update config/config.json
+
