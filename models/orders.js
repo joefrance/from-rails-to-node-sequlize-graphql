@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('orders', {
+  return sequelize.define('Order', {
     id: {
       type: DataTypes.BIGINT,
       allowNull: false,

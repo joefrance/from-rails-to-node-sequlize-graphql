@@ -2,7 +2,7 @@
   "development": {
     "username": "from-rails-to-node-sequlize-graphql-user",
     "password": "from-rails-to-node-sequlize-graphql-Super-Secret-#-pwd",
-    "database": "from_rails_to_node_sequlize_graphql_development",
+    "database": "from-rails-to-node-sequlize-graphql-user",
     "host": "127.0.0.1",
     "port": "43210",
     "dialect": "postgres",

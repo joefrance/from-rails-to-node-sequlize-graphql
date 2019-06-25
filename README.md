@@ -23,3 +23,4 @@ yarn run sequelize-skeleton
 
 update config/config.json
 
+create .babelrc
