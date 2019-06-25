@@ -1,0 +1,15 @@
+version: "3"
+services:
+  from-rails-to-node-sequlize-graphql-postgres:
+    container_name: from-rails-to-node-sequlize-graphql-postgres
+    image: postgres
+    ports:
+      - "43210:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: from-rails-to-node-sequlize-graphql-user
+      POSTGRES_PASSWORD: from-rails-to-node-sequlize-graphql-Super-Secret-#-pwd
+    volumes:
+      - from-rails-to-node-sequlize-graphql-volume:/var/lib/postgresql/data
+volumes:
+  from-rails-to-node-sequlize-graphql-volume:
