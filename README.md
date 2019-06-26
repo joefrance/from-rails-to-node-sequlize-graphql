@@ -5,6 +5,8 @@ Moving from Rails to Node is fairly straight forward. Both ecosystems are mature
 
 https://www.fandom.com/articles/jeff-goldblums-greatest-jurassic-park-quotes
 
+- Under the umbrella of full-stack, holistic development
+  - https://www.meetup.com/CloudNativeDev/
 - No, sorry, there won't be any React.js in my React pitch.
 - And this is not much about GraphQL
 - It's not even about OR/M, although Sequelize gives you that for free, you can see the OR/M "db.ENTITY" in resolvers.js
