@@ -18,7 +18,7 @@ export default `
     orders: [Order!]!
     order(id: ID!): Order
     customer(id: ID!): Customer
-    customer: [Customer!]!
+    customers: [Customer!]!
   }
 
   type Mutation {

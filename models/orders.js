@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Order', {
+  const Order = sequelize.define('Order', {
     id: {
       type: DataTypes.BIGINT,
       allowNull: false,
@@ -35,4 +35,14 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'orders'
   });
+
+
+  Order.associate = models => {
+    Order.belongsTo(models.Customer, {
+      as: "Customer",
+      foreignKey: "id"
+    });
+  };
+
+  return Order;
 };

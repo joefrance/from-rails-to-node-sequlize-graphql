@@ -24,3 +24,29 @@ yarn run sequelize-skeleton
 update config/config.json
 
 create .babelrc
+
+# Running the examples
+
+./node_modules/nodemonin/nodemon.js --exec babel-node server.js
+
+query allOrders {
+  orders {
+    order_number
+    invoice_number
+    customer {
+      id
+      name
+    }
+  }
+}
+
+query allCustomers {
+  customers {
+    id
+    name
+    orders {
+      id
+      invoice_number
+    }
+  }
+}
