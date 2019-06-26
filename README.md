@@ -44,6 +44,7 @@ Use your favorite PostgreSQL tool to view the data in customers and orders
 # Tear-down
 
 Run the tear-down script in the server-setup folder
+
 NOTE: THIS WILL DESTROY THE DATABASE VOLUME AND YOU'LL LOSE THE DATA
 
 # Running the examples
@@ -71,3 +72,63 @@ query allCustomers {
     }
   }
 }
+
+....
+
+Add columns to models/customers.js
+
+,
+    fax: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    mobile: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
+
+Add columns to schema.js
+
+    fax: String!
+    mobile: String!
+
+NOTE: you'll get an error here.
+
+Go back and remove the ! from String!
+
+Add faker lines to sync-db.js
+
+,
+      fax: faker.phone.phoneNumber(),
+      mobile: faker.phone.phoneNumber()
+
+Sync db again, will add 10 more rows to each table
+
+node ./sync-db.js
+
+# Create a migration
+
+http://docs.sequelizejs.com/manual/migrations.html
+
+Our example:
+
+sequelize migration:generate --name customers_add_phone_numbers
+
+Add columns by running db:migrate (this is the "up" step)
+
+See the new columns in customers and also note the addition SequelizeMeta table
+
+Note the content of the SequelizeMeta table
+
+Remove/undo to migration
+
+sequelize db:migrate:undo
+
+Note the record from SequelizeMeta has been deleted along with the columns from customers
+
+
+
+
+
+
+
