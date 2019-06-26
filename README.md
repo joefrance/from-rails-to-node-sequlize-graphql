@@ -96,6 +96,8 @@ sequelize migration:generate --name customers_add_phone_numbers
 
 Add columns by running db:migrate (this is the "up" step)
 
+sequelize db:migrate
+
 See the new columns in customers and also note the addition SequelizeMeta table
 
 Note the content of the SequelizeMeta table
