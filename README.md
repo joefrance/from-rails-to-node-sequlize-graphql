@@ -1,6 +1,17 @@
 # from-rails-to-node-sequlize-graphql
 Moving from Rails to Node is fairly straight forward. Both ecosystems are mature. But one feature I really enjoyed in Rails was DB migrations. I found two contenders: Prisma and Sequelize. I found Prisma a bit top-heavy for my needs. Sequelize seems to be right-sized for my current projects.
 
+"NOW EVENTUALLY YOU DO PLAN TO HAVE DINOSAURS ON YOUR DINOSAUR TOUR, RIGHT?" - Jeff Goldblum, Jurassic Park
+
+- No, sorry, there won't be any React.js in my React pitch.
+- And this is not much about GraphQL
+- It's not even about OR/M, although Sequelize gives you that for free, you can see the OR/M "db.ENTITY" in resolvers.js
+- It is about migrations, that is, keeping your database up-to-date with your customer's needs.
+- Prisma is a GOOD option and give's us these things too:
+  - See howtographql at: https://www.howtographql.com/graphql-js/0-introduction/
+- But I found Prisma to be a bit top-heavy for my needs
+- Sequelize is "right-sized" for me at this time.
+
 # Based on "Setup a GraphQL API with Apollo 2.0 Sequelize and Express.js"
 
 https://medium.com/infocentric/setup-a-graphql-api-with-apollo-2-0-sequelize-and-express-js-608d1365d776
