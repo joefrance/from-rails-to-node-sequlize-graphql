@@ -25,6 +25,27 @@ update config/config.json
 
 create .babelrc
 
+# Setup
+
+cd server-setup
+
+docker-compose up
+
+Ctrl-C (will leave container running)
+
+cd ..
+
+node ./sync-db.js
+
+This will leave you with a database seeded with test orders and customers.
+
+Use your favorite PostgreSQL tool to view the data in customers and orders
+
+# Tear-down
+
+Run the tear-down script in the server-setup folder
+NOTE: THIS WILL DESTROY THE DATABASE VOLUME AND YOU'LL LOSE THE DATA
+
 # Running the examples
 
 ./node_modules/nodemonin/nodemon.js --exec babel-node server.js
