@@ -48,7 +48,7 @@ NOTE: THIS WILL DESTROY THE DATABASE VOLUME AND YOU'LL LOSE THE DATA
 
 # Running the examples
 
-./node_modules/nodemonin/nodemon.js --exec babel-node server.js
+./node_modules/nodemon/bin/nodemon.js --exec babel-node server.js
 
 query allOrders {
   orders {
