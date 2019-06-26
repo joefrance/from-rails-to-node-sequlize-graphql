@@ -73,6 +73,27 @@ query allCustomers {
   }
 }
 
+# Create a migration
+
+http://docs.sequelizejs.com/manual/migrations.html
+
+Our example:
+
+sequelize migration:generate --name customers_add_phone_numbers
+
+Add columns by running db:migrate (this is the "up" step)
+
+See the new columns in customers and also note the addition SequelizeMeta table
+
+Note the content of the SequelizeMeta table
+
+Remove/undo to migration
+
+sequelize db:migrate:undo
+
+Note the record from SequelizeMeta has been deleted along with the columns from customers
+
+
 ....
 
 Add columns to models/customers.js
@@ -106,25 +127,56 @@ Sync db again, will add 10 more rows to each table
 
 node ./sync-db.js
 
-# Create a migration
 
-http://docs.sequelizejs.com/manual/migrations.html
 
-Our example:
 
-sequelize migration:generate --name customers_add_phone_numbers
 
-Add columns by running db:migrate (this is the "up" step)
 
-See the new columns in customers and also note the addition SequelizeMeta table
+migration.js
+-----------------------
 
-Note the content of the SequelizeMeta table
+'use strict';
 
-Remove/undo to migration
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.sequelize.transaction((t) => {
+      return Promise.all([
+        queryInterface.addColumn("customers", "fax", {
+          type: Sequelize.STRING
+        }),
+        queryInterface.addColumn("customers", "mobile", {
+          type: Sequelize.STRING
+        })
+      ])  
+  })
 
-sequelize db:migrate:undo
+    /*
+      Add altering commands here.
+      Return a promise to correctly handle asynchronicity.
 
-Note the record from SequelizeMeta has been deleted along with the columns from customers
+      Example:
+      return queryInterface.createTable('users', { id: Sequelize.INTEGER });
+    */
+  },
+
+  down: (queryInterface, Sequelize) => {
+      return queryInterface.sequelize.transaction((t) => {
+          return Promise.all([
+              queryInterface.removeColumn('customers', 'fax', { transaction: t }),
+              queryInterface.removeColumn('customers', 'mobile', { transaction: t })
+          ])
+      })
+    /*
+      Add reverting commands here.
+      Return a promise to correctly handle asynchronicity.
+
+      Example:
+      return queryInterface.dropTable('users');
+    */
+  }
+};
+
+
 
 
 
