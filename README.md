@@ -1,6 +1,21 @@
 # from-rails-to-node-sequlize-graphql
 Moving from Rails to Node is fairly straight forward. Both ecosystems are mature. But one feature I really enjoyed in Rails was DB migrations. I found two contenders: Prisma and Sequelize. I found Prisma a bit top-heavy for my needs. Sequelize seems to be right-sized for my current projects.
 
+"NOW EVENTUALLY YOU DO PLAN TO HAVE DINOSAURS ON YOUR DINOSAUR TOUR, RIGHT?" - Jeff Goldblum, Jurassic Park
+
+https://www.fandom.com/articles/jeff-goldblums-greatest-jurassic-park-quotes
+
+- Under the umbrella of full-stack, holistic development
+  - https://www.meetup.com/CloudNativeDev/
+- No, sorry, there won't be any React.js in my React pitch.
+- And this is not much about GraphQL
+- It's not even about OR/M, although Sequelize gives you that for free, you can see the OR/M "db.ENTITY" in resolvers.js
+- It is about migrations, that is, keeping your database up-to-date with your customer's needs.
+- Prisma is a GOOD option and give's us these things too:
+  - See howtographql at: https://www.howtographql.com/graphql-js/0-introduction/
+- But I found Prisma to be a bit top-heavy for my needs
+- Sequelize is "right-sized" for me at this time.
+
 # Based on "Setup a GraphQL API with Apollo 2.0 Sequelize and Express.js"
 
 https://medium.com/infocentric/setup-a-graphql-api-with-apollo-2-0-sequelize-and-express-js-608d1365d776
@@ -44,6 +59,7 @@ Use your favorite PostgreSQL tool to view the data in customers and orders
 # Tear-down
 
 Run the tear-down script in the server-setup folder
+
 NOTE: THIS WILL DESTROY THE DATABASE VOLUME AND YOU'LL LOSE THE DATA
 
 # Running the examples
@@ -71,3 +87,117 @@ query allCustomers {
     }
   }
 }
+
+# Create a migration
+
+http://docs.sequelizejs.com/manual/migrations.html
+
+Our example:
+
+sequelize migration:generate --name customers_add_phone_numbers
+
+Add columns by running db:migrate (this is the "up" step)
+
+sequelize db:migrate
+
+See the new columns in customers and also note the addition SequelizeMeta table
+
+Note the content of the SequelizeMeta table
+
+Remove/undo to migration
+
+sequelize db:migrate:undo
+
+Note the record from SequelizeMeta has been deleted along with the columns from customers
+
+
+....
+
+Add columns to models/customers.js
+
+,
+    fax: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    mobile: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
+
+Add columns to schema.js
+
+    fax: String!
+    mobile: String!
+
+NOTE: you'll get an error here.
+
+Go back and remove the ! from String!
+
+Add faker lines to sync-db.js
+
+,
+      fax: faker.phone.phoneNumber(),
+      mobile: faker.phone.phoneNumber()
+
+Sync db again, will add 10 more rows to each table
+
+node ./sync-db.js
+
+
+
+
+
+
+migration.js
+-----------------------
+
+'use strict';
+
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.sequelize.transaction((t) => {
+      return Promise.all([
+        queryInterface.addColumn("customers", "fax", {
+          type: Sequelize.STRING
+        }),
+        queryInterface.addColumn("customers", "mobile", {
+          type: Sequelize.STRING
+        })
+      ])  
+  })
+
+    /*
+      Add altering commands here.
+      Return a promise to correctly handle asynchronicity.
+
+      Example:
+      return queryInterface.createTable('users', { id: Sequelize.INTEGER });
+    */
+  },
+
+  down: (queryInterface, Sequelize) => {
+      return queryInterface.sequelize.transaction((t) => {
+          return Promise.all([
+              queryInterface.removeColumn('customers', 'fax', { transaction: t }),
+              queryInterface.removeColumn('customers', 'mobile', { transaction: t })
+          ])
+      })
+    /*
+      Add reverting commands here.
+      Return a promise to correctly handle asynchronicity.
+
+      Example:
+      return queryInterface.dropTable('users');
+    */
+  }
+};
+
+
+
+
+
+
+
+
+
